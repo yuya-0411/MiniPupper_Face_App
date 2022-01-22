@@ -69,5 +69,5 @@ class SETUP():
         cmd = f'{self.push_path[0:2]} && cd {self.push_path} && git add . && git commit -m "modified" && git push origin main'
         print(cmd)
         subprocess.Popen(cmd, shell=True)
-        sleep(3)
+        sleep(10)
         self.ssh_setup()
