@@ -1,0 +1,27 @@
+####### user setting #######
+
+### SSH ###
+# IP address
+ip_address:
+  192.168.13.17
+# port
+port:
+  '22'
+# username
+user:
+  ubuntu
+# password
+pass:
+  mangdang
+###########
+
+### UPDATE ###
+# folder path of local repository for image-management <- git push 
+repository:
+  D:\MiniPupper\MiniPupper_Face_App
+face_store:
+  ./Faces
+# folder path of local repository for image-management on minipupper <- git pull
+# repository_on_minipupper:
+#   path2
+##############
