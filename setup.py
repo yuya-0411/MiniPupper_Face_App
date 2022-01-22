@@ -13,6 +13,7 @@ except ImportError:
 
 import paramiko
 import subprocess
+from time import time
 
 class SETUP():
     def __init__(self, config_yaml='config.yaml'):
@@ -68,4 +69,5 @@ class SETUP():
         cmd = f'{self.push_path[0:2]} && cd {self.push_path} && git add . && git commit -m "modified" && git push origin main'
         print(cmd)
         subprocess.Popen(cmd, shell=True)
+        sleep(3)
         self.ssh_setup()
