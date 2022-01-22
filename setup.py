@@ -32,7 +32,7 @@ class SETUP():
         # before running: git clone (or git pull) on home directory
         # run: python MiniPupper_Face/face_change.py
         # self.cmd = 'cd && git clone (or git pull) && python MiniPupper_Face_App/face_change.py'
-        self.cmd = 'cd MiniPupper_Face_App && git pull && python3 face_change.py'
+        self.cmd = 'cd MiniPupper_Face_App && git pull && python face_change.py'
         ############# 実行コマンド
     def folder(self):
         return self.face_store

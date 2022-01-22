@@ -59,4 +59,6 @@ for expantion in type:
 [shutil.copy(f'{img_path}', f'{COPY_PATH}/{name_list[n]}') for n, img_path in enumerate(img_list)]
 
 subprocess.Popen(cmd1, shell=True)
-subprocess.Popen(cmd1, shell=True)
+subprocess.Popen(cmd2, shell=True)
+
+print("Finished!!")
