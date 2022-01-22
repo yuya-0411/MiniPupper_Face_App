@@ -1,7 +1,0 @@
-cmd: ls -al
-folder_path: path1
-ip_address: 192.168.13.17
-minipupper_folder: path2
-pass: mangdang
-port: '22'
-user: ubuntu
