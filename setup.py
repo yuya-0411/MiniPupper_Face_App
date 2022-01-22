@@ -32,7 +32,7 @@ class SETUP():
         # before running: git clone (or git pull) on home directory
         # run: python MiniPupper_Face/face_change.py
         # self.cmd = 'cd && git clone (or git pull) && python MiniPupper_Face_App/face_change.py'
-        self.cmd = 'cd && git pull && python MiniPupper_Face_App/face_change.py'
+        self.cmd = 'cd MiniPupper_Face_App && git pull && python3 face_change.py'
         ############# 実行コマンド
     def folder(self):
         return self.face_store
@@ -67,5 +67,5 @@ class SETUP():
     def face_setup(self):
         cmd = f'{self.push_path[0:2]} && cd {self.push_path} && git add . && git commit -m "modified" && git push origin main'
         print(cmd)
-        # subprocess.Popen(cmd, shell=True)
+        subprocess.Popen(cmd, shell=True)
         self.ssh_setup()
