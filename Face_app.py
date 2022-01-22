@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 from functions import BrowseFunc
-from setup import SETUP
+from face_setup import SETUP
 import os
 import shutil
 
