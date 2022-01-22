@@ -51,8 +51,8 @@ cmd2 = "sudo systemctl start robot"
 
 for expantion in type:
     for n, folder in enumerate(folders):
-        if len(glob.glob(f"{folder}/change/*.{expantion}"))!=0:
-            img_list.append(glob.glob(f"{folders[n]}/change/*.{expantion}")[0])
+        if len(glob.glob(f"{folder}/*.{expantion}"))!=0:
+            img_list.append(glob.glob(f"{folders[n]}/*.{expantion}")[0])
             name_list.append(names[n])
         else:
             pass
