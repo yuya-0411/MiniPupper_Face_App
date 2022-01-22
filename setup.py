@@ -13,7 +13,7 @@ except ImportError:
 
 import paramiko
 import subprocess
-from time import time
+from time import sleep
 
 class SETUP():
     def __init__(self, config_yaml='config.yaml'):
