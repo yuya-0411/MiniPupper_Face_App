@@ -32,8 +32,9 @@ config.yaml has some parameters as follows:
 - user: "user name for computer on MiniPupper"
 - pass: "ubuntu password"
 - repository: "local repository path, absolute path is recommended"
+- repository: "local repository name, absolute path is recommended"
 - face_store: "you don't need to change"
-- first_use: "you don't need to change"
+- first_use: "for first use, please set False"
 
 ## STEP4: use app
 - if you choose main branch, run the below.
@@ -46,3 +47,6 @@ python Face_app.py
 ```
 
 - if you choose app branch, you launch the exe file (Face_app.exe)
+
+## CAUTION!
+the size for images is recommended to be 320 $\times$ 240 because LCD on MiniPupper is 320 $\times$ 240.
