@@ -21,7 +21,7 @@ repository:
   D:\MiniPupper\MiniPupper_Face_App
 face_store:
   ./Faces
-# folder path of local repository for image-management on minipupper <- git pull
-# repository_on_minipupper:
-#   path2
+
+first_use:
+  False
 ##############

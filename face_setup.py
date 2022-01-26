@@ -1,10 +1,9 @@
 """
-Pythonからssh接続を行うためには paramiko というライブラリが必要
+you need library "paramiko" in order to connect ssh from python
 pip install paramiko
 """
 # yaml>5.x :: you need run yaml.load and yaml.dump with Loader and Dumper respectively
 # https://pyyaml.org/wiki/PyYAMLDocumentation
-from ipaddress import ip_address
 import yaml
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
@@ -13,7 +12,6 @@ except ImportError:
 
 import paramiko
 import subprocess
-from time import sleep
 
 class SETUP():
     def __init__(self, config_yaml='config.yaml'):
@@ -24,50 +22,58 @@ class SETUP():
             self.my_port = yml['port']
             self.my_username = yml['user']
             self.my_password = yml['pass']
-            self.push_path = yml['repository']
+            self.repository = yml['repository']
             self.face_store = yml['face_store']
-            # self.pull_path = yml['repository_on_minipupper']
+            self.first_use = yml['first_use']
         #############
 
-        ############# 実行コマンド
-        # before running: git clone (or git pull) on home directory
-        # run: python MiniPupper_Face/face_change.py
-        # self.cmd = 'cd && git clone (or git pull) && python MiniPupper_Face_App/face_change.py'
-        self.cmd = 'cd MiniPupper_Face_App && git pull && python3 face_change.py'
-        ############# 実行コマンド
     def folder(self):
         return self.face_store
+
     def ssh_setup(self):
-        # with付きで準備することで，最後自動でssh.close()
+        # use 'with' to run ssh.close() automatically
         with paramiko.SSHClient() as ssh:
-            # 初回ログイン時に「Are you sure you want to continue connecting (yes/no)?」と
-            # きかれても問題なく接続できるように。
+            # you don't to answer "Are you sure you want to continue connecting (yes/no)?"
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-            # ssh接続
+            # access the computer on MiniPupper via ssh
             ssh.connect(self.ip_address,
                         port=self.my_port,
                         username=self.my_username,
                         password=self.my_password)
 
-            # コマンド実行
-            # before running: git clone (or git pull) on home directory
-            # run: python MiniPupper_Face/face_change.py
+            ############# command run on computer of MiniPupper
+            if self.first_use:
+                self.cmd = f'cd {self.repository} && git pull && python3 face_change.py'
+            else:
+                self.first_use = True
+                self.cmd = f'cd {self.repository} && git clone && python3 face_change.py'
+                yml = {
+                    'ip_address':self.ip_address,
+                    'port':self.my_port,
+                    'user':self.my_username,
+                    'pass':self.my_password,
+                    'repository':self.repository,
+                    'face_store':self.face_store,
+                    'first_use':self.first_use
+                    }
+                with open('config.yaml', 'w') as file:
+                    yaml.dump(yml, file, Dumper=Dumper)
+            #############
+
+            # run the command
             stdin, stdout, stderr = ssh.exec_command(self.cmd)
+            
 
-            # コマンド実行後に標準入力が必要な場合
-            # stdin.write('password\n')
-            # stdin.flush()
-
-            # 実行結果を表示
+            # show the result
             for o in stdout:
                 print('[std]', o, end='')
             for e in stderr:
                 print('[err]', e, end='')
-    # 'D:\MiniPupper\MiniPupper_Face'
+    
+    # setup images for faces in
     def face_setup(self):
-        cmd = f'{self.push_path[0:2]} && cd {self.push_path} && git add . && git commit -m "modified" && git push origin main'
-        print(cmd)
+        cmd = f'{self.repository[0:2]} && cd {self.repository} && git add . && git commit -m "modified" && git push origin main'
         subprocess.run(cmd, shell=True)
-        # sleep(10)
+
         self.ssh_setup()
