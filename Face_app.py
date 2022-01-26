@@ -7,9 +7,6 @@ import shutil
 
 class APP():
     def __init__(self):
-        # PyYamlのようなライブラリでyamlファイルを用いた設定管理をおこなう
-        # yamlファイルから情報を取得できるようにする
-        # yamlファイルで設定されていない項目については入力を促す何かを施す
         self.setup = SETUP()
         self.face_store = self.setup.folder()
         self.root = tk.Tk()
@@ -23,31 +20,24 @@ class APP():
         # Canvas
         self.canvas = tk.Canvas(self.root, width=width, height=height)
         self.canvas.grid(columnspan=columnspan, rowspan=rowspan)
-    
-    # def folder_select(self):
-    #     self.folder = tk.filedialog.askdirectory(initialdir = 'C:')
 
     def generate_menu(self):
-        #メニューバー作成 
+        #create menu
         menu = tk.Menu(self.root)
 
-        #メニューバーを画面にセット 
+        #set the menu on the window
         self.root.config(menu=menu)
 
-        #メニューに親メニュー（ファイル）を作成する 
+        #create parent menu on the menu 
         menu_file = tk.Menu(self.root) 
-        menu.add_cascade(label='メニュー', menu=menu_file)
+        menu.add_cascade(label='MENU', menu=menu_file)
 
-        #親メニューに子メニュー（開く・閉じる）を追加する 
-        # menu_file.add_command(label='ssh接続', command=lambda:self.setup.ssh_setup()) 
-        # menu_file.add_separator() 
-        # menu_file.add_command(label='フォルダ指定', command=lambda:self.folder_select()) 
-        # menu_file.add_separator() 
+        # child menu on the parent menu
         menu_file.add_command(label='Reset', command=lambda:self.initial_img()) 
         menu_file.add_separator() 
         menu_file.add_command(label='UpDate', command=lambda:self.setup.face_setup()) 
         menu_file.add_separator() 
-        menu_file.add_command(label='閉じる', command=lambda:self.root.destroy())
+        menu_file.add_command(label='close app', command=lambda:self.root.destroy())
 
     def initial_img(self):
         # initial images
@@ -60,6 +50,7 @@ class APP():
                     'walk_r1/original.png'
         ]
 
+        # arange faces on the canvas
         col = 0
         row = 0
         for face_path in self.Faces:
@@ -71,6 +62,7 @@ class APP():
                 col += 1
             self.copy_move_file(f'./original/{face_path}', f"{self.face_store}/{face_path[:-13]}")
 
+    # function to arange images on the canvas
     def arange(self, face_path, col, row):
         face_logo = Image.open(f'{face_path}')
         face_logo = ImageTk.PhotoImage(face_logo)
@@ -78,12 +70,14 @@ class APP():
         face_label.image = face_logo
         face_label.grid(column=col, row=row)
 
+    # function to move images to another folder
     def copy_move_file(self, img, target_dir):
         shutil.rmtree(target_dir)
         os.mkdir(target_dir)
 
         shutil.copy(img, target_dir)
     
+    # function to generate buttons on the canvas
     def generate_buttons(self):
         # Buttons
         browse_text = [tk.StringVar() for i in range(len(self.Faces))]
@@ -116,6 +110,8 @@ class APP():
                 col = 0
             else:
                 col += 1
+
+    # main
     def main(self):
 
         self.root.mainloop()

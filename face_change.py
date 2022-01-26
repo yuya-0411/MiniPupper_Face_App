@@ -17,10 +17,8 @@ STEP6: sudo systemctl start robot
 """
 
 import glob
-import os
 import shutil
 import subprocess
-from time import sleep
 
 folders = [
             "./Faces/logo",
@@ -60,7 +58,6 @@ for expantion in type:
 [shutil.copy(f'{img_path}', f'{COPY_PATH}/{name_list[n]}') for n, img_path in enumerate(img_list)]
 
 subprocess.run(cmd1, shell=True)
-# sleep(3)
 subprocess.run(cmd2, shell=True)
 
 print("Finished!!")
