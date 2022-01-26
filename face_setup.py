@@ -22,6 +22,7 @@ class SETUP():
             self.my_port = yml['port']
             self.my_username = yml['user']
             self.my_password = yml['pass']
+            self.repository_path = yml['repository_path']
             self.repository = yml['repository']
             self.face_store = yml['face_store']
             self.first_use = yml['first_use']
@@ -73,7 +74,7 @@ class SETUP():
     
     # setup images for faces in
     def face_setup(self):
-        cmd = f'{self.repository[0:2]} && cd {self.repository} && git checkout app && git add . && git commit -m "modified" && git push origin app'
+        cmd = f'{self.repository_path[0:2]} && cd {self.repository_path+self.repository} && git checkout app && git add . && git rm -r --cached __pycache__ && git commit -m "modified" && git push origin app'
         subprocess.run(cmd, shell=True)
 
         self.ssh_setup()
