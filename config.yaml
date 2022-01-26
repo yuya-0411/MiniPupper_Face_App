@@ -17,8 +17,10 @@ pass:
 
 ### UPDATE ###
 # folder path of local repository for image-management <- git push 
+repository_path:
+  D:\MiniPupper\
 repository:
-  D:\MiniPupper\MiniPupper_Face_App
+  MiniPupper_Face_App
 face_store:
   ./Faces
 

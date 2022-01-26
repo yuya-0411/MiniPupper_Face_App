@@ -22,6 +22,7 @@ class SETUP():
             self.my_port = yml['port']
             self.my_username = yml['user']
             self.my_password = yml['pass']
+            self.repository_path = yml['repository_path']
             self.repository = yml['repository']
             self.face_store = yml['face_store']
             self.first_use = yml['first_use']
@@ -44,15 +45,16 @@ class SETUP():
 
             ############# command run on computer of MiniPupper
             if self.first_use:
-                self.cmd = f'cd {self.repository} && git pull && python3 face_change.py'
+                self.cmd = f'cd {self.repository_path} && git pull && python3 face_change.py'
             else:
                 self.first_use = True
-                self.cmd = f'cd {self.repository} && git clone && python3 face_change.py'
+                self.cmd = f'cd {self.repository_path} && git clone && python3 face_change.py'
                 yml = {
                     'ip_address':self.ip_address,
                     'port':self.my_port,
                     'user':self.my_username,
                     'pass':self.my_password,
+                    'repository_path':self.repository_path,
                     'repository':self.repository,
                     'face_store':self.face_store,
                     'first_use':self.first_use
@@ -73,7 +75,7 @@ class SETUP():
     
     # setup images for faces in
     def face_setup(self):
-        cmd = f'{self.repository[0:2]} && cd {self.repository} && git add . && git commit -m "modified" && git push origin main'
+        cmd = f'{self.repository_path[0:2]} && cd {self.repository_path+self.repository} && git add . && git rm -r --cached __pycache__ && git commit -m "modified" && git push origin main'
         subprocess.run(cmd, shell=True)
 
         self.ssh_setup()
