@@ -48,5 +48,10 @@ python Face_app.py
 
 - if you choose app branch, you launch the exe file (Face_app.exe)
 
+https://user-images.githubusercontent.com/83892604/151650282-90cb4877-127c-4853-9153-1e63f0b847fe.mp4
+
+https://user-images.githubusercontent.com/83892604/151650286-e15071a2-945e-4e91-8aaf-bd5abe167ecf.mp4
+
+
 ## CAUTION!
 the size for images is recommended to be 320x240 because LCD on MiniPupper is 320x240.
