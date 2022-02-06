@@ -3,7 +3,7 @@
 MiniPupper is a robot from MangDang.
 This robot has some types of facial expression.
 
-### you can change facial expression though this app!
+### you can change facial expression through this app!
 
 ## STEP1: setup environment
 Though this app, you can change its face via github as long as you can access computer on MiniPupper by using ssh.
